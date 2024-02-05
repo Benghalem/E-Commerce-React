@@ -1,0 +1,9 @@
+.container {
+    height: 100vb;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper{
+    margin-top: 30px;
+}
