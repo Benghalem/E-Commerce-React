@@ -15,11 +15,8 @@ const Header = () => {
           <h1 className= {headerLogo}>
             <span>our</span> <Badge>Ecom</Badge>
           </h1>
-
     < HeaderBasket/>
-
-      </div>
-      
+      </div>   
       <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
       <Container>
         

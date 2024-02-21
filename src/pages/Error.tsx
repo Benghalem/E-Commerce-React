@@ -4,7 +4,7 @@ import { Link, useRouteError, isRouteErrorResponse } from "react-router-dom"
 import { Container } from "react-bootstrap"
 
 const Error = () => {
-    const error = useRouteError();
+  const error = useRouteError();
   let errorStatus: number;
   let errorStatusText: string;
 
