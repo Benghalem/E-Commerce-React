@@ -1,6 +1,7 @@
-export type ICategory = {
+export type TCategory = {
     id?: number,
     title: string,
     prefix: string,
     img: string
+    max: number
 }

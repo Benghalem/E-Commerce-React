@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";  
 import { actGetCategories } from "@store/categories/categoriesSlice";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+// components
 import { Category } from "@components/ecoomerc";
+import { Loading } from "@components/feadback";
+import { GridList } from "@components/common";
+
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -15,20 +19,24 @@ const Categories = () => {
    
   }, [dispatch, records]);
 
-
-  const categoriesList = records.length > 0 ? records.map(record => {
+/* ======== this is old code move it in a component GridList ===== */
+ /*  const categoriesList = records.length > 0 ? records.map(record => {
     return (
     <Col key={record.id} xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
         <Category {...record} />
       </Col>
     )
-  }): " there are no categories";
+  }): " there are no categories"; */
+  
   return (
-    <Container>
-    <Row>
-      {categoriesList}
-    </Row>
-    </Container>
+    <Loading status={loading} error={error}>
+      <Container>
+        <GridList 
+          records={records} 
+          renderItem = {(record) => <Category {...record} />} 
+        />
+      </Container>
+    </Loading>
   )
 }
 

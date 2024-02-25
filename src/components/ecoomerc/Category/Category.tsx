@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 
 // type 
-import  { ICategory } from "@costopTypes/category";
+import  { TCategory } from "@costopTypes/category";
 
 const { category, categoryImg, categoryTitle } = styles;
 
 
-const Category = ({ title, img, prefix}: ICategory) => {
+const Category = ({ title, img, prefix}: TCategory) => {
 
   return (
     <div className={category}>

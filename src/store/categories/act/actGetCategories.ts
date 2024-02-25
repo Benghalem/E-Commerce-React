@@ -13,6 +13,7 @@ const actGetCategories = createAsyncThunk(
         const {rejectWithValue} = thunkAPI
         try {
                 const response = await axion.get<TResponse>("http://localhost:5005/categories");
+                console.log(response.data);
                 return response.data;
         } catch (error) { 
             if(axion.isAxiosError(error)){

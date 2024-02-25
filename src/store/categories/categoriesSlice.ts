@@ -3,11 +3,11 @@ import actGetCategories from "./act/actGetCategories";
 
 // type 
 import { TLoading } from '@costopTypes/share';
-import  { ICategory } from "@costopTypes/category";
+import  { TCategory } from "@costopTypes/category";
 
 
 interface ICategoriesState {
-    records: ICategory[];
+    records: TCategory[];
     loading: TLoading;
     error: string | null;
 }
@@ -29,12 +29,13 @@ const categoriesSlice = createSlice({
         })
         builder.addCase(actGetCategories.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.records = action.payload;      
+            state.records = action.payload; 
         })
         builder.addCase(actGetCategories.rejected, (state, action) => {
             state.loading = "failed";
             if(action.payload && typeof action.payload === "string"){
                 state.error = action.payload;  // or state.error = action.payload as string
+                
             }
                 
         })
