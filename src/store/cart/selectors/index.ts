@@ -18,7 +18,6 @@ const itemQuantitiyAvailabilityCheckingSelector = createSelector (
     (itemQuantity) => itemQuantity,
     (_,itemMax) => itemMax,
     (itemQuantity, itemMax) => {
-        console.log("faire");
         const currentQuntityInCart = itemQuantity|| 0;
         const currentRemaniningQuntitiy = itemMax - currentQuntityInCart;
         const quntitiyReachedMax = currentRemaniningQuntitiy <= 0 ? true : false;

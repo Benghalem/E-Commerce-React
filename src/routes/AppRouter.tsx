@@ -7,12 +7,15 @@ import MainLayout from '@layouts/MainLayout/MainLayout'
 
 // Pages
 import Home from '@pages/Home'
+import Wishlist from '@pages/Wishlist'
 import Categories from '@pages/Categories'
 import AboutUs from '@pages/AboutUs'
 import Products from '@pages/Prodects'
 import Login from '@pages/Login'
 import Register from '@pages/Register'
 import Error from '@pages/Error'
+import Cart from '@pages/Cart'
+
 
 const router = createBrowserRouter([
     {
@@ -23,6 +26,14 @@ const router = createBrowserRouter([
         {
             index: true,
             element: <Home/>,
+          },
+          {
+            path: "cart",
+            element: <Cart/>
+          },
+          {
+            path: "wishlist",
+            element: <Wishlist/>
           },
           {
             path: "categories",

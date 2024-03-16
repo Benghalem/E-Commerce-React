@@ -1,11 +1,11 @@
 
 import { NavLink } from "react-router-dom";
-import { HeaderBasket } from "../../ecoomerc"
+import { HeaderBasket, HeaderWishList } from "../../ecoomerc"
 import { Badge, Container, Nav, Navbar } from "react-bootstrap"
 
 import tyles from "./styles.module.css"
 
-const { headerConteaner, headerLogo } = tyles;
+const { headerConteaner, headerLogo, HeaderLeftBar } = tyles;
 
 
 const Header = () => {
@@ -15,7 +15,10 @@ const Header = () => {
           <h1 className= {headerLogo}>
             <span>our</span> <Badge>Ecom</Badge>
           </h1>
-    < HeaderBasket/>
+          <div className={HeaderLeftBar}>
+            < HeaderWishList/>
+            < HeaderBasket/>
+          </div>
       </div>   
       <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
       <Container>

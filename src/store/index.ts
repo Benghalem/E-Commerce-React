@@ -16,6 +16,8 @@ import categories from './categories/categoriesSlice'
 import products from './products/productSlice'
 // cart
 import cart from './cart/cartSlice'
+// wishList
+import wishlist from './wishlist/wishlist'
 
 
 
@@ -40,10 +42,19 @@ const cartPresistConfig = {
   whitelist: ["items"],
   // blacklist: []
 }
+
+// add data to wishlist in local storage
+const wishlistPresistConfig = {
+  key: "wishlist",
+  storage,
+  whitelist: ["itemsId"],
+  // blacklist: []
+}
 const rootReducer = combineReducers({
   categories, 
   products, 
-  cart: persistReducer(cartPresistConfig, cart)
+  cart: persistReducer(cartPresistConfig, cart),
+  wishlist: persistReducer(wishlistPresistConfig, wishlist)
 })
 
 

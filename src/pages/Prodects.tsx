@@ -8,7 +8,7 @@ import { Container} from "react-bootstrap";
 // components
 import { Product } from "@components/ecoomerc";
 import { Loading } from "@components/feadback";
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 
 
 
@@ -16,6 +16,8 @@ const Prodects = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.products);
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const wishListItems = useAppSelector((state) => state.wishlist.itemsId);
   useEffect(() => {
     /* let prefix : string;
     if (typeof params.prefix === "string") {
@@ -29,6 +31,11 @@ const Prodects = () => {
     }
   }, [dispatch, params]);
 
+  const productFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id],
+    isLiked: wishListItems.includes(el.id)
+  }))
   /* this is old code move it in a component GridList */
   /* const productsList = records.length > 0 ? records.map(record => {
     return (
@@ -39,11 +46,14 @@ const Prodects = () => {
   }): " there are no categories";
  */
   return (
-    <Loading status={loading} error={error}>
-      <Container>
-         <GridList records={records} renderItem={(records) => <Product {...records} />} />
-      </Container>
-    </Loading>
+    <>
+      <Heading>{params.prefix?.toUpperCase()} Products</Heading>
+      <Loading status={loading} error={error}>
+        <Container>
+          <GridList records={productFullInfo} renderItem={(records) => <Product {...records} />} />
+        </Container>
+      </Loading>
+    </>
   )
 }
 
