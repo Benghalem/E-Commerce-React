@@ -1,4 +1,4 @@
-import { TProduct } from "@costopTypes/product";
+import { TProduct } from "@types";
 import styles from "./styles.module.css";
 
 

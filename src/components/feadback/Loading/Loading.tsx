@@ -1,4 +1,4 @@
-import { TLoading } from "@costopTypes/share"
+import { TLoading } from "@types"
 
 
 type LoadungProps = {

@@ -3,8 +3,8 @@ import actGetProductByItems from "./act/actGetProductByItems";
 import { getCaretTotaleQuntitySelector, 
     itemQuantitiyAvailabilityCheckingSelector 
 } from "../cart/selectors";
-import { TProduct } from "@costopTypes/product";
-import { TLoading } from "@costopTypes/share";
+// type
+import { TProduct, TLoading , isString} from "@types";
 
 
 type ICartState = {
@@ -38,6 +38,9 @@ const cartSlice = createSlice({
         cartItemRemove : (state, action) => {
             delete state.items[action.payload];
             state.productFullInfo = state.productFullInfo.filter((el)=> el.id !== action.payload)
+        },
+        cleanCartProductFullInfo : (state) => {
+            state.productFullInfo = []
         }
     },
     extraReducers: (builder) => {
@@ -51,10 +54,15 @@ const cartSlice = createSlice({
         });
         builder.addCase(actGetProductByItems.rejected, (state, action) => {
             state.loading = "failed";
-            if(action.payload && typeof action.payload === "string"){
+
+            if (isString(action.payload)) {
+                state.error = action.payload;
+            }
+            // old code
+           /*  if(action.payload && typeof action.payload === "string"){
                 state.error = action.payload;  // or state.error = action.payload as string
                 
-            }
+            } */
         })
     }
 })
@@ -66,5 +74,10 @@ export {
     actGetProductByItems,
     
 }
-export const {addToCart,cartItemsChangeQuantity,cartItemRemove} = cartSlice.actions;
+export const {
+    addToCart,
+    cartItemsChangeQuantity,
+    cartItemRemove,
+    cleanCartProductFullInfo
+} = cartSlice.actions;
 export default cartSlice.reducer

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+// axios error handling
+import  { axiosErrorHandler }  from "@util";
 const actLikeTogle = createAsyncThunk(
     "wishlist/actLikeTogle", 
     async(id: number, thunkAPI) => {
@@ -23,11 +24,7 @@ const actLikeTogle = createAsyncThunk(
                 return{type: "add", id};
             }
         } catch (error) {
-            if(axios.isAxiosError(error)){
-                return rejectWithValue(error.response?.data.message || error.message) 
-            } else {
-                return rejectWithValue("An unexpected error occured");
-            }
+            return rejectWithValue(axiosErrorHandler(error))
         }
 })
 

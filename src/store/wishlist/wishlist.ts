@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actLikeTogle from "./act/actLikeTogle";
 import actGetWishlist from "./act/actGetWishlist";
-import { TLoading } from "@costopTypes/share";
-import { TProduct } from "@costopTypes/product";
+// type
+import { TLoading, TProduct, isString } from "@types";
 
 
 type IWishlist = {
@@ -24,7 +24,7 @@ const wishlist = createSlice({
     initialState,
     reducers: {
         // cleanup wishlist
-        productsFullInfoCleaner: (state) => {
+        cleanWishlistProductFullInfo: (state) => {
             state.productFullInfo = []
         }
     },
@@ -60,13 +60,17 @@ const wishlist = createSlice({
         });
         builder.addCase(actGetWishlist.rejected, (state, action) => {
             state.loading = "failed"
-            if(action.payload && typeof action.payload === "string"){
-                state.error = action.payload
+
+            if (isString(action.payload)) {
+                state.error = action.payload;
             }
+           /*  if(action.payload && typeof action.payload === "string"){
+                state.error = action.payload
+            } */
         })
     }
 });
 
 export {actLikeTogle, actGetWishlist}
-export const {productsFullInfoCleaner} = wishlist.actions
+export const {cleanWishlistProductFullInfo} = wishlist.actions
 export default wishlist.reducer

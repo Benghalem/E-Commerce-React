@@ -1,37 +1,18 @@
-import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "@store/hooks"
-import { actGetWishlist, productsFullInfoCleaner } from "@store/wishlist/wishlist"
-
+// hooks
+import useWishlist from "@hooks/useWishlist";
 // components
 import { Product } from "@components/ecoomerc";
 import { Loading } from "@components/feadback";
 import { GridList, Heading } from "@components/common";
-import { TProduct } from "@costopTypes/product";
+import { TProduct } from "@types";
 
 
 const Wishlist = () => {
-    const dispatch = useAppDispatch()
-
-    const { loading, error, productFullInfo } = useAppSelector((state) => state.wishlist);
-    const cartItems = useAppSelector((state) => state.cart.items);
-
-    useEffect(() => {
-        dispatch(actGetWishlist());
-        return () => {
-            dispatch(productsFullInfoCleaner());
-        }
-    }, [dispatch]);
-
-
-    const records = productFullInfo.map((el) => ({
-        ...el,
-        quantity: cartItems[el.id],
-        isLiked: true
-      }))
+    const { loading, error, records } = useWishlist();
 
   return (
     <>
-      <Heading>Your Wishlist</Heading>
+      <Heading title="Your Wishlist"/>
       <Loading status={loading} error={error}>
           <GridList<TProduct> 
             records={records} 

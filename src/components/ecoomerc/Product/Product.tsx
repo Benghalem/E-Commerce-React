@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useAppDispatch, /* useAppSelector */ } from "@store/hooks";
 import { actLikeTogle } from "@store/wishlist/wishlist";
 import  { addToCart,/* itemQuantitiyAvailabilityCheckingSelector */}  from "@store/cart/cartSlice";
@@ -10,11 +10,11 @@ import Like from "@assets/svg/like.svg?react"
 import LikeFull from "@assets/svg/like-fill.svg?react"
 
 // TYPE
-import { TProduct } from "@costopTypes/product";
+import { TProduct } from "@types";
 
 
 const { product, productImg, maximumNotice, wishListBtn } = styles;
-const Product = ({id, title, price, img, max, quantity, isLiked }: TProduct ) => {
+const Product = memo( ({id, title, price, img, max, quantity, isLiked }: TProduct ) => {
 
   const dispatch = useAppDispatch();
   const [isBtnClick, setBtnClick] = useState(0);
@@ -60,6 +60,7 @@ const Product = ({id, title, price, img, max, quantity, isLiked }: TProduct ) =>
      .catch(() => {setLoading(false)})
   }
 
+  console.log("fiare prodect")
   return (
     <div className={product}>
       <div className={wishListBtn} onClick={likeTogleHandler}>
@@ -100,6 +101,6 @@ const Product = ({id, title, price, img, max, quantity, isLiked }: TProduct ) =>
       </Button>
     </div>
   );
-};
+});
 
 export default Product;
