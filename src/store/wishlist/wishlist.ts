@@ -63,13 +63,13 @@ const wishlist = createSlice({
 
             if (isString(action.payload)) {
                 state.error = action.payload;
-            }
+            } 
            /*  if(action.payload && typeof action.payload === "string"){
                 state.error = action.payload
             } */
         })
     }
-});
+}); 
 
 export {actLikeTogle, actGetWishlist}
 export const {cleanWishlistProductFullInfo} = wishlist.actions

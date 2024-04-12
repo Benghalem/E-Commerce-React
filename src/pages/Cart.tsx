@@ -2,7 +2,7 @@
 import useCart from "@hooks/useCart"
 // components
 import { Heading } from "@components/common"
-import { Loading } from "@components/feadback"
+import { Loading, LottieHandler } from "@components/feadback"
 import { CartItemList, CartSubtotalPric } from "@components/ecoomerc"
 
 const Cart = () => {
@@ -10,7 +10,7 @@ const Cart = () => {
   return (
     <>
         <Heading title="Your Cart"/>
-        <Loading status={loading} error={error}>
+        <Loading status={loading} error={error} >
           { products.length ? (
             <>
               < CartItemList 
@@ -21,7 +21,7 @@ const Cart = () => {
               <CartSubtotalPric products={products}/>
             </>
           ):(
-            "Your cart is empty"
+            <LottieHandler type="empty" message="Your cart is empty" />
           )}
           
         </Loading>

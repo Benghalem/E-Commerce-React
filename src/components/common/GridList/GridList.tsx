@@ -1,15 +1,18 @@
+import { LottieHandler } from "@components/feadback";
 import {  Row, Col } from "react-bootstrap";
 // this type is a generic between category and product
 type GridListProps<T> = {
     records: T[];
     renderItem: (record: T) => React.ReactNode
+    emptyMessage?: string
 }
 // extended id type from category and product
 type HasId = { id?: number }  
 
 const GridList = <T extends HasId>({
         records, 
-        renderItem
+        renderItem,
+        emptyMessage
     }: GridListProps<T>) => {
     const categoriesList = 
         records.length > 0 ? records.map(record => {
@@ -18,7 +21,7 @@ const GridList = <T extends HasId>({
             {renderItem(record)}
         </Col>
         )
-      }): " there are no categories"; 
+      }): <LottieHandler type="empty"  message={emptyMessage}/>; 
   return (
         <Row>{categoriesList}</Row>
   )
