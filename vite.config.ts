@@ -19,7 +19,8 @@ export default defineConfig({
       "@util/*": path.resolve(__dirname, "./src/util/*"),
       "@util": path.resolve(__dirname, "./src/util/index"),
       "@services": path.resolve(__dirname, "./src/services"),
-
+      "@validations": path.resolve(__dirname, "./src/validations"),
+ 
       
     },
   },
