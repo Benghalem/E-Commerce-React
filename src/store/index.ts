@@ -18,6 +18,8 @@ import products from './products/productSlice'
 import cart from './cart/cartSlice'
 // wishList
 import wishlist from './wishlist/wishlist'
+// authSlice
+import auth from './auth/authSlice'
 
 
 
@@ -51,6 +53,7 @@ const wishlistPresistConfig = {
   // blacklist: []
 }
 const rootReducer = combineReducers({
+  auth,
   categories, 
   products, 
   cart: persistReducer(cartPresistConfig, cart),

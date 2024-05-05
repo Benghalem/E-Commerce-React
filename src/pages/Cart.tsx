@@ -14,7 +14,7 @@ const Cart = () => {
           { products.length ? (
             <>
               < CartItemList 
-                products={products} 
+                products={products}  
                 changeQuantityHandler={changeQuantityHandler}
                 removeItemHandlr={removeItemHandlr}
                 />         

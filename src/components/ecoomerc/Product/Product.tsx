@@ -1,9 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, /* useAppSelector */ } from "@store/hooks";
+// like and deslike component
 import { actLikeTogle } from "@store/wishlist/wishlist";
 import  { addToCart,/* itemQuantitiyAvailabilityCheckingSelector */}  from "@store/cart/cartSlice";
 // styles
-import { Button, Spinner } from "react-bootstrap";
+import { Button, Spinner, Modal } from "react-bootstrap";
 import styles from "./styles.module.css";
 // svg
 import Like from "@assets/svg/like.svg?react"
@@ -14,8 +15,10 @@ import { TProduct } from "@types";
 
 
 const { product, productImg, maximumNotice, wishListBtn } = styles;
-const Product = memo( ({id, title, price, img, max, quantity, isLiked }: TProduct ) => {
-
+const Product = memo( ({id, title, price, img, max, quantity, isLiked, isAuthenticated }: TProduct ) => {
+// show modal login or not 
+  const [showModal, setShowModal] = useState(false);
+// dispatch and state between like and deslike
   const dispatch = useAppDispatch();
   const [isBtnClick, setBtnClick] = useState(0);
   const [isBtnDisbled, setBtnDisbled] = useState(false);
@@ -48,20 +51,36 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked }: TProduc
   }
 
   const likeTogleHandler = () => {
-    // if is loadding dont send request again
+    // Show modal login or not when selected likeBtn
+    if( isAuthenticated ) {
+      // if is loadding dont send request again
     if(isLoading){
       return
     }
     setLoading(true);
     dispatch(actLikeTogle(id))
-     .unwrap()
-     .then(() => {setLoading(false)})
+      .unwrap()
+      .then(() => {setLoading(false)})
      // when server error or server down 
-     .catch(() => {setLoading(false)})
-  }
+      .catch(() => {setLoading(false)})
 
+    } else {
+      setShowModal(true)
+    }
+    
+  }
   console.log("fiare prodect")
   return (
+    <>
+      <Modal show= {showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You need to login to add product to your wishlist
+        </Modal.Body>
+      </Modal>
+
     <div className={product}>
       <div className={wishListBtn} onClick={likeTogleHandler}>
         {isLoading ? (
@@ -70,8 +89,7 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked }: TProduc
           <LikeFull/>
         ) : (
           <Like/> 
-        )}
-       
+        )}    
       </div>
       <div className={productImg}>
         <img
@@ -100,6 +118,7 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked }: TProduc
         )}    
       </Button>
     </div>
+    </>
   );
 });
 

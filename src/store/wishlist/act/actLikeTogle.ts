@@ -1,3 +1,5 @@
+//SECTION - Like and DisLike 
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // axios error handling
@@ -10,17 +12,14 @@ const actLikeTogle = createAsyncThunk(
             const isRecordExist = await axios.get(
                 `http://localhost:5005/wishlist?userId=1&productId=${id}`
             )
-            
+            // if prodect already exist in wishlist remove it
             if(isRecordExist.data.length > 0){
                 console.log(isRecordExist.data[0].id)
-                await axios.delete( `http://localhost:5005/wishlis/${isRecordExist.data[0]}`)
-              //  console.log(test)
-              //  console.log("add")
+                await axios.delete( `http://localhost:5005/wishlist/${isRecordExist.data[0].id}` )
                 return{type: "remove", id};
-            }else{
+            
+            }else{ // else add it in wishlist
                 await axios.post("http://localhost:5005/wishlist", {userId: "1", productId: id})
-                //console.log(test)
-             //   console.log("add")
                 return{type: "add", id};
             }
         } catch (error) {

@@ -1,54 +1,25 @@
-import { useForm, SubmitHandler } from "react-hook-form"
-// zed validation schema
-import { zodResolver } from "@hookform/resolvers/zod"
-import { signUpSchema, signUpType } from "@validations/signUpSchema"
-// hook for email validation
-import  useCheckEmailAvailabilty  from "@hooks/useCheckEmailAvailabilty"
+import { Navigate } from "react-router-dom"
+// import hooks useRegister
+import useRegister from "@hooks/useRegister";
 // import components
 import { Heading } from '@components/common';
-import {Button, Form, Row, Col} from 'react-bootstrap/';
+import {Button, Form, Row, Col, Spinner} from 'react-bootstrap/';
 import { Input } from "@components/forms";
-import React from "react";
+
 
 
 const Register = () => {
-  // register your input
-  const { 
-    register, 
-    handleSubmit, 
-    getFieldState,
-    trigger,
-    formState: { errors }
-  } = useForm<signUpType>({
-    mode: "onBlur",
-    resolver: zodResolver(signUpSchema)
-  });
-  // handle form submission 
-  const submitForm: SubmitHandler<signUpType> = (data) => {
-    console.log(data)
-  }
-  // check email validation
-  const {
-    checkEmailAvailabilty, 
-    emailAvailabiltyStatus, 
-    enteredEmail, 
-    resetCheckEmailAvailabilty
-  } = useCheckEmailAvailabilty()
+  // git data from useRegister
+  const { loading, error, accessToken, formErrors,
+          register, 
+          handleSubmit, 
+          emailAvailabiltyStatus,
+          emailOnBlurHandler,
+          submitForm } = useRegister()
 
-  const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
-    await trigger("email")
-    const value = e.target.value
-    const { isDirty, invalid } = getFieldState("email")
-    // if isDirty and not invalid and enteredEmail is not equal to value
-    if(isDirty && !invalid && enteredEmail !== value) {
-      // checking
-      checkEmailAvailabilty(value)    
-    }
-    // dont show me tow messag error
-    if( isDirty && invalid && enteredEmail) {
-      resetCheckEmailAvailabilty()
-    }
-
+   // protect register page  if user already logged in
+   if(accessToken){
+    return <Navigate to="/" />
   }
 
   return (
@@ -58,10 +29,10 @@ const Register = () => {
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit(submitForm)}>
           {/* register your input first name */}
-            <Input label="First Name" name="firstName" register={register} errors={errors.firstName?.message}/>
+            <Input label="First Name" name="firstName" register={register} errors={formErrors.firstName?.message}/>
 
           {/* register your input last name */}
-          <Input label="Lest Name" name="lastName" register={register} errors={errors.lastName?.message}/>
+          <Input label="Lest Name" name="lastName" register={register} errors={formErrors.lastName?.message}/>
 
           {/* register your input email */}
           <Input 
@@ -69,8 +40,8 @@ const Register = () => {
             name="email" 
             register={register} 
             onBlur={emailOnBlurHandler}
-            errors={errors.email?.message? errors.email
-              ?.message: emailAvailabiltyStatus ===  "notAvailable"
+            errors={formErrors.email?.message ? formErrors.email
+              ?.message : emailAvailabiltyStatus ===  "notAvailable"
               ? " This email is already in use"
               : emailAvailabiltyStatus === "failed"? "Error from the server" : ""
             } 
@@ -90,16 +61,33 @@ const Register = () => {
           />
 
           {/* register your input password */}
-          <Input label="Password" name="password" type="password" register={register} errors={errors.password?.message}/>
+          <Input label="Password" name="password" type="password" register={register} errors={formErrors.password?.message}/>
 
           {/* register your input confirm password */}
-          <Input label="Confirm Password" name="confirmPassword" type="password" register={register} errors={errors.confirmPassword?.message}/>
+          <Input label="Confirm Password" name="confirmPassword" type="password" register={register} errors={formErrors.confirmPassword?.message}/>
 
           {/* submit button */}
-
-            <Button variant="info" type="submit" style={{ color: "white" }} disabled= {emailAvailabiltyStatus === "checking"? true : false}>
-              Submit
+            <Button 
+                variant="info" 
+                type="submit" 
+                style={{ color: "white" }} 
+                disabled= {
+                  emailAvailabiltyStatus === "checking"
+                    ? true 
+                    : false || loading === "pending"
+                }
+            >
+              { loading === "pending" ?  (
+                <>
+                  <Spinner animation="border" size="sm" /> Loading... 
+                </>
+                ) : ( 
+                  "Submit"
+                )
+              }
             </Button>
+            {/* error message */}
+            {error && <p className="text-danger" style={{ color: "#0DC3545", marginTop: "10px"}}>{error}</p>}
           </Form>
         </Col>
       </Row>

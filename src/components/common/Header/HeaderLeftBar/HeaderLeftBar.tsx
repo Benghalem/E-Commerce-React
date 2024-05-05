@@ -14,8 +14,7 @@ const HeaderLeftBar = () => {
     const wishlistTotalQuntity = useAppSelector((state) => state.wishlist.itemsId.length);
   const caetTotalQuntity = useAppSelector(getCaretTotaleQuntitySelector);
   return (
-    <div className={headerLeftBar}>
-            
+    <div className={headerLeftBar}>           
     {/*  this old code 
     < HeaderWishList/>
      < HeaderBasket/> */}

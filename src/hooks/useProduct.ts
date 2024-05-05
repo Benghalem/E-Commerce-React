@@ -11,6 +11,8 @@ const useProduct = () => {
     const { loading, error, records } = useAppSelector((state) => state.products);
     const cartItems = useAppSelector((state) => state.cart.items);
     const wishListItems = useAppSelector((state) => state.wishlist.itemsId);
+    // if authuntication or not 
+    const isAuthAccessToken = useAppSelector((state) => state.auth.accessToken);
     useEffect(() => {
       /* let prefix : string;
       if (typeof params.prefix === "string") {
@@ -28,7 +30,8 @@ const useProduct = () => {
     const productFullInfo = records.map((el) => ({
       ...el,
       quantity: cartItems[el.id],
-      isLiked: wishListItems.includes(el.id)
+      isLiked: wishListItems.includes(el.id),
+      isAuthenticated: isAuthAccessToken ? true : false
     }))
     /* this is old code move it in a component GridList */
     /* const productsList = records.length > 0 ? records.map(record => {
