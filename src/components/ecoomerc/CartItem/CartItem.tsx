@@ -1,9 +1,11 @@
 import { memo } from "react";
+// import ProductInfo Replace old code
+import ProductInfo from "../ProductInfo/ProductInfo";
 import { Form, Button } from "react-bootstrap";
 import { TProduct } from "@types";
 import styles from "./styles.module.css";
-
-const {cartItem, product, productImg, productInfo, cartItemSelection} = styles;
+// * product,  productImg, productInfo, * odld code 
+const {cartItem,/*  product,  productImg, productInfo,  */ cartItemSelection} = styles;
 
 type CartItemProps = TProduct & {
   changeQuantityHandler: (id:number, quantity:number) => void
@@ -32,13 +34,15 @@ const CartItem = memo (({
 
   return (
     <div className={cartItem}>
-        <div className={product}>
+         <ProductInfo title={title} img={img} price={price}   diriction="column"> 
+      {/* Old code */}
+       {/*  <div className={product}>
           <div className={productImg}>
             <img src={img} alt={title} />
           </div>
           <div className={productInfo}>
             <h2>{title}</h2>
-            <h3>{Number(price).toFixed(2)} DZ </h3>
+            <h3>{Number(price).toFixed(2)} DZ </h3> */}
             <Button
               variant="secondary"
               style={{ color: "white", width: "100px" }}
@@ -47,8 +51,9 @@ const CartItem = memo (({
             >
               Remove
             </Button>
-          </div>
-        </div>
+          {/*  </div> 
+            </div>  */}
+         </ProductInfo>  
 
         <div className={cartItemSelection}>
           <span className="d-block mb-1" >Quantity</span>

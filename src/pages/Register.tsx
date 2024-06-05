@@ -13,7 +13,7 @@ const Register = () => {
   const { loading, error, accessToken, formErrors,
           register, 
           handleSubmit, 
-          emailAvailabiltyStatus,
+          emailAvailabiltyStatus, 
           emailOnBlurHandler,
           submitForm } = useRegister()
 
@@ -91,9 +91,7 @@ const Register = () => {
           </Form>
         </Col>
       </Row>
-    
     </>
-    
   )
 }
 

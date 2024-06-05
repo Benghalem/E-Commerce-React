@@ -1,12 +1,23 @@
-import Product from './Product/Product'
-import Category from './Category/Category'
-import CartItem from './CartItem/CartItem'
-import CartSubtotalPric from './CartSubtotalPric/CartSubTotalPric'
-import CartItemList from './CartItemList/CartItemList'
+import Product from "./Product/Product";
+import Category from "./Category/Category";
+import CartItem from "./CartItem/CartItem";
+import CartSubtotalPric from "./CartSubtotalPric/CartSubTotalPric";
+import CartItemList from "./CartItemList/CartItemList";
+import ProductInfo from "./ProductInfo/ProductInfo";
 // this to move to one
-import HeaderWishList from './HeaderWishList/HeaderWishList'
-import HeaderBasket from './HeaderBasket/HeaderBasket'
+import HeaderWishList from "./HeaderWishList/HeaderWishList";
+import HeaderBasket from "./HeaderBasket/HeaderBasket";
 // this is
-import HeaderCounter from '../common/Header/HeaderCounter/HeaderCounter'
+import HeaderCounter from "../common/Header/HeaderCounter/HeaderCounter";
 
-export { HeaderBasket, Product, Category, CartItem, CartSubtotalPric, CartItemList, HeaderWishList, HeaderCounter }
+export {
+  HeaderBasket,
+  Product,
+  Category,
+  CartItem,
+  CartSubtotalPric,
+  CartItemList,
+  HeaderWishList,
+  HeaderCounter,
+  ProductInfo,
+};

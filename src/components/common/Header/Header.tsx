@@ -50,8 +50,8 @@ const Header = () => {
               <Nav.Link as={NavLink} to="/register">Register</Nav.Link>
             </>: /* if access token show profile */
             <NavDropdown title={`Welcom: ` + user?.firstName + " " + user?.lastName} id="basic-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/profile" >Profaile</NavDropdown.Item>
-              <NavDropdown.Item > Oreders</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/profile" end > Profaile</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/profile/orders" > Oreders</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item 
                 as={NavLink} 

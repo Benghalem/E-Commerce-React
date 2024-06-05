@@ -20,7 +20,8 @@ import cart from './cart/cartSlice'
 import wishlist from './wishlist/wishlist'
 // authSlice
 import auth from './auth/authSlice'
-
+// orders
+import ordersSlice from './orders/ordersSlice'
 
 
 // ========== local storage config for persist store  cart all =======
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   auth,
   categories, 
   products, 
+  ordersSlice,
   cart: persistReducer(cartPresistConfig, cart),
   wishlist: persistReducer(wishlistPresistConfig, wishlist)
 })

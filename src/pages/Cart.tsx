@@ -6,7 +6,15 @@ import { Loading, LottieHandler } from "@components/feadback"
 import { CartItemList, CartSubtotalPric } from "@components/ecoomerc"
 
 const Cart = () => {
-    const { products, loading, error, changeQuantityHandler, removeItemHandlr } = useCart()
+    const { 
+        products, 
+        loading, 
+        error, 
+        changeQuantityHandler, 
+        removeItemHandlr, 
+        useAccessToken, 
+        placeOrderStatus 
+    } = useCart()
   return (
     <>
         <Heading title="Your Cart"/>
@@ -18,10 +26,15 @@ const Cart = () => {
                 changeQuantityHandler={changeQuantityHandler}
                 removeItemHandlr={removeItemHandlr}
                 />         
-              <CartSubtotalPric products={products}/>
+              <CartSubtotalPric 
+                products={products}
+                useAccessToken={useAccessToken}
+              />
             </>
-          ):(
-            <LottieHandler type="empty" message="Your cart is empty" />
+          ): placeOrderStatus === "succeeded" ?  (
+            <LottieHandler type="success" message="Your order has been placed successfully" />
+          ) : (
+            <LottieHandler type="empty" message="Your cart is empty"/>
           )}
           
         </Loading>

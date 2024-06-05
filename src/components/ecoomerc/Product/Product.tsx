@@ -3,6 +3,8 @@ import { useAppDispatch, /* useAppSelector */ } from "@store/hooks";
 // like and deslike component
 import { actLikeTogle } from "@store/wishlist/wishlist";
 import  { addToCart,/* itemQuantitiyAvailabilityCheckingSelector */}  from "@store/cart/cartSlice";
+// import productInfo component and styles
+import ProductInfo from "../ProductInfo/ProductInfo";
 // styles
 import { Button, Spinner, Modal } from "react-bootstrap";
 import styles from "./styles.module.css";
@@ -14,7 +16,7 @@ import LikeFull from "@assets/svg/like-fill.svg?react"
 import { TProduct } from "@types";
 
 
-const { product, productImg, maximumNotice, wishListBtn } = styles;
+const { maximumNotice, wishListBtn } = styles;
 const Product = memo( ({id, title, price, img, max, quantity, isLiked, isAuthenticated }: TProduct ) => {
 // show modal login or not 
   const [showModal, setShowModal] = useState(false);
@@ -81,7 +83,7 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked, isAuthent
         </Modal.Body>
       </Modal>
 
-    <div className={product}>
+    <ProductInfo title={title} price={price} img={img} diriction="row" >
       <div className={wishListBtn} onClick={likeTogleHandler}>
         {isLoading ? (
           <Spinner animation="border" size="sm" variant="primary"/>
@@ -91,21 +93,13 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked, isAuthent
           <Like/> 
         )}    
       </div>
-      <div className={productImg}>
-        <img
-          src={img}
-          alt={title}
-        />
-      </div>
-      <h2>{title}</h2>
-      <h3>{price} DZ</h3>
       <p className= {maximumNotice}>
         {quntitiyReachedMax ? 
         " maximum quantity reached " : 
         currentRemaniningQuntitiy} in stock </p>
       <Button 
         variant="info" 
-        style={{ color: "white" }} 
+        style={{ color: "white", width: "100%" }} 
         onClick={addToCaretHandler}
         disabled={isBtnDisbled || quntitiyReachedMax}
         >
@@ -117,7 +111,7 @@ const Product = memo( ({id, title, price, img, max, quantity, isLiked, isAuthent
             " Add to cart"
         )}    
       </Button>
-    </div>
+    </ProductInfo>
     </>
   );
 });

@@ -42,7 +42,7 @@ const actGetWishlist = createAsyncThunk(
             const response = await axios.get<TResponse>(
                 `http://localhost:5005/products?${concatenedItemsId}`
             )
-            console.log(response.data)
+          
             return {data:response.data, dataType: "ProductsFullInfo"};
             }
 
