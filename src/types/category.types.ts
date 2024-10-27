@@ -1,7 +1,7 @@
 export type TCategory = {
-    id?: number,
-    title: string,
-    prefix: string,
-    img: string
-    max: number
-}
+  id?: number;
+  title: string;
+  prefix: string;
+  img: string;
+  max: number;
+}[];
