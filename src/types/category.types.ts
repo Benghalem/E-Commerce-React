@@ -4,4 +4,4 @@ export type TCategory = {
   prefix: string;
   img: string;
   max: number;
-}[];
+};
